@@ -1,0 +1,6 @@
+Fuentes incluidas con el juego (se pueden redistribuir con el juego):
+
+- Press Start 2P — Copyright 2012 The Press Start 2P Project Authors (cody@zone38.net)
+- VT323 — Copyright 2011 The VT323 Project Authors (peter@hull.net)
+
+Ambas bajo la SIL Open Font License, Version 1.1: https://openfontlicense.org

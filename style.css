@@ -1,4 +1,9 @@
 /* Look único de arcade nocturno: pixel, morado oscuro, dorado y verde hoja */
+
+/* Fuentes incluidas para que el juego funcione sin internet */
+@font-face { font-family: 'PS2P'; src: url('fonts/PressStart2P.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'VT323 Local'; src: url('fonts/VT323.woff2') format('woff2'); font-display: swap; }
+
 :root {
   color-scheme: dark;
   --bg: #0d0a14;
@@ -13,8 +18,8 @@
   --ember: #ff6b4a;
   --leafc: #8fdc6a;
   --sky: #4fb3ff;
-  --pixel: 'Press Start 2P', ui-monospace, monospace;
-  --read: 'VT323', ui-monospace, monospace;
+  --pixel: 'PS2P', 'Press Start 2P', ui-monospace, monospace;
+  --read: 'VT323 Local', 'VT323', ui-monospace, monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }

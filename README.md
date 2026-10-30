@@ -61,6 +61,28 @@ dale *Save* y en un par de minutos te da un link tipo
 - Más adelante la mano también ataca **desde arriba**: cuando veas una sombra con un `!` en el suelo, quítate.
 - Cada vez es más rápido. Tu récord se guarda en el navegador.
 
+## Versiones descargables
+
+Para armarlas necesitas [Node.js](https://nodejs.org) y `zip`:
+
+```bash
+npm install
+npm run build
+```
+
+Se crean en `dist/`:
+
+| Archivo | Qué es |
+|---|---|
+| `QueNoMeFumen.html` | Todo el juego en **un solo archivo**. Doble clic y se juega, sin internet. |
+| `QueNoMeFumen-Windows.zip` | **App de Windows**. Se descomprime y se abre `Que No Me Fumen.exe`. |
+| `QueNoMeFumen-web.zip` | Los archivos del juego para subir a **itch.io** (tipo HTML) o a cualquier hosting. |
+
+La app de Windows no está firmada, así que la primera vez Windows puede decir "Windows protegió su PC":
+hay que darle a **Más información → Ejecutar de todas formas**.
+
+Para compartir el `.zip` de Windows (pesa ~150 MB), súbelo como *Release* en GitHub, a Google Drive o a itch.io.
+
 ## Archivos
 
 - `index.html`: la página, menús y controles táctiles.
@@ -71,6 +93,9 @@ dale *Save* y en un par de minutos te da un link tipo
 - `js/sprites.js`: el porro (generado por código para las skins), obstáculos, fondos y la mano.
 - `js/ui.js`: menú, tienda, misiones, HUD y controles táctiles.
 - `js/game.js`: la lógica del juego.
+- `fonts/`: las fuentes pixel (incluidas para que funcione sin internet).
+- `desktop/`: la ventana de escritorio (Electron) y el icono.
+- `tools/build.mjs`: arma las versiones descargables.
 
 Está hecho en HTML5 Canvas + JavaScript puro, sin motor. Si después quieres pasarlo
 a Unity o Godot, el diseño y los sprites sirven de base.

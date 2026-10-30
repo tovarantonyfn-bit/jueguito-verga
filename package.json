@@ -1,0 +1,14 @@
+{
+  "name": "que-no-me-fumen",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Juego pixel art: un porro huye de una mano que se lo quiere fumar.",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "build:web": "node tools/build.mjs web",
+    "build:windows": "node tools/build.mjs windows"
+  },
+  "devDependencies": {
+    "@electron/packager": "20.3.0"
+  }
+}
