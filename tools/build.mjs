@@ -72,7 +72,7 @@ function buildWindows() {
   execFileSync('npx', [
     '--no-install', 'electron-packager', app, 'Que No Me Fumen',
     '--platform=win32', '--arch=x64', `--electron-version=${ELECTRON_VERSION}`,
-    `--out=${DIST}`, '--overwrite', '--asar',
+    `--out=${DIST}`, '--overwrite', '--asar', `--icon=${path.join(ROOT, 'desktop', 'icon.ico')}`,
   ], { cwd: ROOT, stdio: 'inherit' });
   fs.writeFileSync(path.join(DIST, outName, 'LEEME.txt'),
     'QUE NO ME FUMEN\r\n\r\nPara jugar: abre "Que No Me Fumen.exe".\r\n' +

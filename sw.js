@@ -1,6 +1,6 @@
 // Service worker: guarda el juego en el teléfono para que se pueda jugar sin internet.
 // Responde desde la copia guardada y la actualiza en segundo plano.
-const CACHE = 'qnmf-v1';
+const CACHE = 'qnmf-v2';
 const FILES = [
   './', 'index.html', 'style.css', 'manifest.webmanifest',
   'js/data.js', 'js/save.js', 'js/audio.js', 'js/sprites.js', 'js/ui.js', 'js/pwa.js', 'js/game.js',
