@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Que No Me Fumen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,41 +13,114 @@
   <canvas id="game" width="320" height="180"></canvas>
 
   <div id="hud" class="hidden">
-    <div id="score">0 m</div>
-    <div id="leaves">HOJAS 0</div>
-    <div id="danger"><span>MANO</span><div id="bar"><div id="fill"></div></div></div>
+    <div class="tl">
+      <div id="hScore">0</div>
+      <div id="hDist">0 m</div>
+      <div id="hLeaves"></div>
+      <div id="hPower"></div>
+    </div>
+    <div class="tr">
+      <div class="meter"><span>MANO</span><div class="bar"><div id="hDanger"></div></div></div>
+      <div class="meter smoke"><span>HUMO</span><div class="bar"><div id="hSmoke"></div></div></div>
+      <div id="hZone">ZONA 1</div>
+    </div>
   </div>
-
-  <div id="title" class="screen">
-    <h1>QUE NO ME<br>FUMEN</h1>
-    <p class="sub">Eres un porro. Una mano gigante te quiere fumar. Corre.</p>
-    <ul>
-      <li class="kb"><b>← →</b> moverte · <b>↑ / ESPACIO</b> saltar (doble) · <b>↓</b> agacharte</li>
-      <li class="tc"><b>◀ ▶</b> moverte · <b>▲</b> saltar (doble) · <b>▼</b> agacharte</li>
-      <li><span class="g">Hojitas</span> y <span class="b">gotas</span> alejan la mano</li>
-      <li>Esquiva encendedores, ceniceros y chispas</li>
-      <li>Si ves una <b>sombra</b> en el suelo... ¡muévete!</li>
-    </ul>
-    <p class="blink"><span class="kb">ESPACIO PARA EMPEZAR</span><span class="tc">TOCA PARA EMPEZAR</span></p>
-    <p class="best">Récord: <span id="bestTitle">0</span> m</p>
-  </div>
-
-  <div id="over" class="screen hidden">
-    <h1 class="red">¡TE FUMARON!</h1>
-    <p id="final">0 m</p>
-    <p id="newBest" class="g hidden">¡NUEVO RÉCORD!</p>
-    <p class="best">Récord: <span id="bestOver">0</span> m</p>
-    <p class="blink"><span class="kb">ESPACIO PARA REINTENTAR</span><span class="tc">TOCA PARA REINTENTAR</span></p>
-  </div>
-
-  <div id="paused" class="screen hidden">
-    <h1>PAUSA</h1>
-    <p class="blink"><span class="kb">P PARA SEGUIR</span><span class="tc">TOCA PARA SEGUIR</span></p>
-  </div>
-
+  <div id="banner"></div>
 </div>
 
-<div id="touch" class="hidden">
+<div id="toasts"></div>
+
+<!-- Menú principal -->
+<section id="menu" class="screen hidden">
+  <div class="panel">
+    <h1 class="logo">QUE NO ME<br>FUMEN</h1>
+    <div id="mPorro" class="porro-slot"></div>
+    <div class="chips">
+      <span class="chip"><i class="leaf"></i> <b class="walletN">0</b></span>
+      <span class="chip">RANGO <b id="mRank"></b></span>
+    </div>
+    <button class="btn primary big" id="bPlay">JUGAR</button>
+    <div class="row">
+      <button class="btn" id="bShop">TIENDA</button>
+      <button class="btn" id="bMissions">MISIONES</button>
+    </div>
+    <p class="muted">Récord: <b id="mBest">0</b> pts · <b id="mBestDist">0</b> m</p>
+    <p class="help kb">← → moverte · ↑ / ESPACIO saltar · ↓ agacharte · E humo · P pausa</p>
+    <p class="help tc">Botones abajo: ◀ ▶ moverte · ▲ saltar · ▼ agacharte · HUMO</p>
+    <p class="help">Cáele encima a los obstáculos para romperlos. Cuando el humo esté lleno, échaselo a la mano.</p>
+    <button class="btn ghost small" id="mMute">SONIDO: SÍ</button>
+  </div>
+</section>
+
+<!-- Tienda -->
+<section id="shop" class="screen hidden">
+  <div class="panel wide">
+    <header class="bar-head">
+      <button class="btn small" id="shopBack">◀ VOLVER</button>
+      <h2>TIENDA</h2>
+      <span class="chip"><i class="leaf"></i> <b class="walletN">0</b></span>
+    </header>
+    <div class="tabs">
+      <button data-tab="up" class="on">MEJORAS</button>
+      <button data-tab="skin">PAPEL</button>
+      <button data-tab="acc">ACCESORIOS</button>
+    </div>
+    <div id="shopList" class="list"></div>
+  </div>
+</section>
+
+<!-- Misiones -->
+<section id="missions" class="screen hidden">
+  <div class="panel">
+    <header class="bar-head">
+      <button class="btn small" id="missionsBack">◀ VOLVER</button>
+      <h2>MISIONES</h2>
+      <span class="chip"><i class="leaf"></i> <b class="walletN">0</b></span>
+    </header>
+    <div class="rank">
+      <span class="muted">TU RANGO</span>
+      <b id="rankName"></b>
+      <span>Puntos <b id="rankMult" class="gold"></b></span>
+      <span class="muted" id="rankNext"></span>
+    </div>
+    <div id="missionList" class="list one"></div>
+  </div>
+</section>
+
+<!-- Game over -->
+<section id="over" class="screen hidden">
+  <div class="panel">
+    <h1 class="red">¡TE FUMARON!</h1>
+    <div class="big-score" id="oScore">0</div>
+    <p class="muted">PUNTOS</p>
+    <p id="oBest" class="leafc hidden">¡NUEVO RÉCORD!</p>
+    <dl class="stats">
+      <dt>Distancia</dt><dd id="oDist"></dd>
+      <dt>Hojas</dt><dd id="oLeaves"></dd>
+      <dt>Zona</dt><dd id="oZone"></dd>
+      <dt>Récord</dt><dd id="oBestVal"></dd>
+    </dl>
+    <ul id="oMissions" class="done hidden"></ul>
+    <button class="btn revive" id="bRevive">REVIVIR</button>
+    <button class="btn primary big" id="bAgain">OTRA VEZ</button>
+    <div class="row">
+      <button class="btn" id="bOverShop">TIENDA</button>
+      <button class="btn" id="bOverMenu">MENÚ</button>
+    </div>
+  </div>
+</section>
+
+<!-- Pausa -->
+<section id="paused" class="screen hidden">
+  <div class="panel">
+    <h1>PAUSA</h1>
+    <button class="btn primary big" id="bResume">SEGUIR</button>
+    <button class="btn" id="bPauseMenu">SALIR AL MENÚ</button>
+  </div>
+</section>
+
+<!-- Controles táctiles -->
+<div id="touch">
   <div class="pad">
     <button data-k="left" aria-label="Izquierda">◀</button>
     <button data-k="right" aria-label="Derecha">▶</button>
@@ -56,13 +129,19 @@
     <button id="btnPause">PAUSA</button>
     <button id="btnMute">SON ON</button>
     <button id="btnFull">PANTALLA</button>
-    <p class="rotate">Gira el cel para verlo más grande</p>
   </div>
   <div class="pad">
     <button data-k="down" aria-label="Agacharse">▼</button>
     <button data-k="jump" class="big" aria-label="Saltar">▲</button>
   </div>
+  <button data-k="smoke" id="btnSmoke" class="smoke-btn" aria-label="Echar humo">HUMO</button>
 </div>
-<script src="game.js"></script>
+
+<script src="js/data.js"></script>
+<script src="js/save.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/game.js"></script>
 </body>
 </html>
