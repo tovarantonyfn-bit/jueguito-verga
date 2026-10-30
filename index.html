@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Que No Me Fumen</title>
+<meta name="theme-color" content="#0d0a14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="No Me Fumen">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -46,6 +54,8 @@
     <p class="help kb">← → moverte · ↑ / ESPACIO saltar · ↓ agacharte · E humo · P pausa</p>
     <p class="help tc">Botones abajo: ◀ ▶ moverte · ▲ saltar · ▼ agacharte · HUMO</p>
     <p class="help">Cáele encima a los obstáculos para romperlos. Cuando el humo esté lleno, échaselo a la mano.</p>
+    <button class="btn primary hidden" id="bInstall">INSTALAR APP</button>
+    <p class="help hidden" id="iosHint">Para instalarlo en iPhone: toca Compartir y luego "Agregar a inicio".</p>
     <button class="btn ghost small" id="mMute">SONIDO: SÍ</button>
   </div>
 </section>
@@ -141,5 +151,6 @@
 <script src="js/sprites.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/game.js"></script>
+<script src="js/pwa.js"></script>
 </body>
 </html>

@@ -61,6 +61,21 @@ dale *Save* y en un par de minutos te da un link tipo
 - Más adelante la mano también ataca **desde arriba**: cuando veas una sombra con un `!` en el suelo, quítate.
 - Cada vez es más rápido. Tu récord se guarda en el navegador.
 
+## App para celular
+
+El juego es una **app instalable** (PWA): se pone en la pantalla de inicio con su icono, abre en pantalla
+completa y funciona sin internet. Para eso tiene que estar publicado en una dirección `https`, por ejemplo
+con GitHub Pages (**Settings → Pages**, rama `claude/pixel-art-game-porro-fy514q`, carpeta `/ (root)`).
+
+- **Android:** abre el link en Chrome y toca **INSTALAR APP** en el menú del juego (o ⋮ → *Instalar app*).
+- **iPhone:** abre el link en Safari, toca **Compartir → Agregar a inicio**.
+
+### APK de Android
+
+Con el juego ya publicado, entra a [pwabuilder.com](https://www.pwabuilder.com), pega el link y elige
+**Package for stores → Android**. Te da un `.apk` para instalar directo (activando "instalar apps de
+orígenes desconocidos") y un `.aab` por si algún día lo subes a Google Play.
+
 ## Versiones descargables
 
 Para armarlas necesitas [Node.js](https://nodejs.org) y `zip`:
@@ -96,6 +111,7 @@ Para compartir el `.zip` de Windows (pesa ~150 MB), súbelo como *Release* en Gi
 - `fonts/`: las fuentes pixel (incluidas para que funcione sin internet).
 - `desktop/`: la ventana de escritorio (Electron) y el icono.
 - `tools/build.mjs`: arma las versiones descargables.
+- `manifest.webmanifest`, `sw.js`, `js/pwa.js`, `icons/`: lo que lo hace app instalable.
 
 Está hecho en HTML5 Canvas + JavaScript puro, sin motor. Si después quieres pasarlo
 a Unity o Godot, el diseño y los sprites sirven de base.

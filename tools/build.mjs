@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
 const ELECTRON_VERSION = '44.7.2';
-const GAME_FILES = ['index.html', 'style.css', 'js', 'fonts'];
+const GAME_FILES = ['index.html', 'style.css', 'js', 'fonts', 'icons', 'manifest.webmanifest', 'sw.js'];
 const what = process.argv[2] || 'all';
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -36,6 +36,8 @@ function buildSingleFile() {
     return `url(data:font/woff2;base64,${b64})`;
   });
   let html = read('index.html');
+  // un archivo suelto no puede instalarse como app: quitamos el manifiesto y los iconos externos
+  html = html.replace(/<link rel="(manifest|icon|apple-touch-icon)"[^>]*>\n/g, '');
   html = html.replace('<link rel="stylesheet" href="style.css">', () => `<style>\n${css}\n</style>`);
   html = html.replace(/<script src="(js\/[^"]+)"><\/script>/g, (_, src) =>
     `<script>\n${read(src).replace(/<\/script/gi, '<\\/script')}\n</script>`);
