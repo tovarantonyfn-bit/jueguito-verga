@@ -70,11 +70,13 @@ con GitHub Pages (**Settings → Pages**, rama `claude/pixel-art-game-porro-fy51
 - **Android:** abre el link en Chrome y toca **INSTALAR APP** en el menú del juego (o ⋮ → *Instalar app*).
 - **iPhone:** abre el link en Safari, toca **Compartir → Agregar a inicio**.
 
-### APK de Android
+### APK de Android (sin internet)
 
-Con el juego ya publicado, entra a [pwabuilder.com](https://www.pwabuilder.com), pega el link y elige
-**Package for stores → Android**. Te da un `.apk` para instalar directo (activando "instalar apps de
-orígenes desconocidos") y un `.aab` por si algún día lo subes a Google Play.
+`npm run build:android` arma `dist/QueNoMeFumen.apk`, con el juego **adentro** de la app: no necesita
+internet ni ninguna página. Necesita Java; las herramientas (Apktool y uber-apk-signer) se descargan
+solas la primera vez a `.cache/`. La plantilla de la app está en `android/`.
+
+Para instalarlo: pasa el `.apk` al teléfono, ábrelo y acepta "instalar apps de orígenes desconocidos".
 
 ## Versiones descargables
 
@@ -91,6 +93,7 @@ Se crean en `dist/`:
 |---|---|
 | `QueNoMeFumen.html` | Todo el juego en **un solo archivo**. Doble clic y se juega, sin internet. |
 | `QueNoMeFumen-Windows.zip` | **App de Windows**. Se descomprime y se abre `Que No Me Fumen.exe`. |
+| `QueNoMeFumen.apk` | **App de Android** con el juego adentro. Se instala y funciona sin internet. |
 | `QueNoMeFumen-web.zip` | Los archivos del juego para subir a **itch.io** (tipo HTML) o a cualquier hosting. |
 
 La app de Windows no está firmada, así que la primera vez Windows puede decir "Windows protegió su PC":

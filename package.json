@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node tools/build.mjs",
     "build:web": "node tools/build.mjs web",
-    "build:windows": "node tools/build.mjs windows"
+    "build:windows": "node tools/build.mjs windows",
+    "build:android": "node tools/build.mjs android"
   },
   "devDependencies": {
     "@electron/packager": "20.3.0"
