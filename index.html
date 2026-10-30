@@ -22,14 +22,13 @@
     <h1>QUE NO ME<br>FUMEN</h1>
     <p class="sub">Eres un porro. Una mano gigante te quiere fumar. Corre.</p>
     <ul>
-      <li><b>← →</b> moverte</li>
-      <li><b>↑ / ESPACIO</b> saltar (doble salto)</li>
-      <li><b>↓</b> agacharte</li>
+      <li class="kb"><b>← →</b> moverte · <b>↑ / ESPACIO</b> saltar (doble) · <b>↓</b> agacharte</li>
+      <li class="tc"><b>◀ ▶</b> moverte · <b>▲</b> saltar (doble) · <b>▼</b> agacharte</li>
       <li><span class="g">Hojitas</span> y <span class="b">gotas</span> alejan la mano</li>
       <li>Esquiva encendedores, ceniceros y chispas</li>
       <li>Si ves una <b>sombra</b> en el suelo... ¡muévete!</li>
     </ul>
-    <p class="blink">ESPACIO / TOCA PARA EMPEZAR</p>
+    <p class="blink"><span class="kb">ESPACIO PARA EMPEZAR</span><span class="tc">TOCA PARA EMPEZAR</span></p>
     <p class="best">Récord: <span id="bestTitle">0</span> m</p>
   </div>
 
@@ -38,23 +37,30 @@
     <p id="final">0 m</p>
     <p id="newBest" class="g hidden">¡NUEVO RÉCORD!</p>
     <p class="best">Récord: <span id="bestOver">0</span> m</p>
-    <p class="blink">ESPACIO / TOCA PARA REINTENTAR</p>
+    <p class="blink"><span class="kb">ESPACIO PARA REINTENTAR</span><span class="tc">TOCA PARA REINTENTAR</span></p>
   </div>
 
   <div id="paused" class="screen hidden">
     <h1>PAUSA</h1>
-    <p class="blink">P PARA SEGUIR</p>
+    <p class="blink"><span class="kb">P PARA SEGUIR</span><span class="tc">TOCA PARA SEGUIR</span></p>
   </div>
 
-  <div id="touch" class="hidden">
-    <div class="pad left">
-      <button data-k="left">◀</button>
-      <button data-k="right">▶</button>
-    </div>
-    <div class="pad right">
-      <button data-k="down">▼</button>
-      <button data-k="jump">▲</button>
-    </div>
+</div>
+
+<div id="touch" class="hidden">
+  <div class="pad">
+    <button data-k="left" aria-label="Izquierda">◀</button>
+    <button data-k="right" aria-label="Derecha">▶</button>
+  </div>
+  <div class="mid">
+    <button id="btnPause">PAUSA</button>
+    <button id="btnMute">SON ON</button>
+    <button id="btnFull">PANTALLA</button>
+    <p class="rotate">Gira el cel para verlo más grande</p>
+  </div>
+  <div class="pad">
+    <button data-k="down" aria-label="Agacharse">▼</button>
+    <button data-k="jump" class="big" aria-label="Saltar">▲</button>
   </div>
 </div>
 <script src="game.js"></script>

@@ -5,7 +5,20 @@ Juego pixel art: eres un porro que huye de una mano gigante que se lo quiere fum
 ## Cómo jugar
 
 Abre `index.html` en el navegador (doble clic) y listo. No hay que instalar nada.
-Funciona en compu y en celular (salen botones en pantalla).
+
+### En el celular
+
+Salen botones en pantalla automáticamente:
+
+- **◀ ▶** moverte · **▲** saltar (doble salto) · **▼** agacharte
+- Puedes deslizar el dedo de un botón a otro sin soltarlo (por ejemplo de ▶ a ▲).
+- **PAUSA**, **SON** (sonido) y **PANTALLA** (pantalla completa, solo Android).
+- Se juega en vertical, pero acostado se ve más grande.
+
+Para jugarlo en el cel necesita estar en internet, por ejemplo con GitHub Pages:
+en el repo ve a **Settings → Pages**, en *Branch* elige la rama y la carpeta `/ (root)`,
+dale *Save* y en un par de minutos te da un link tipo
+`https://<tu-usuario>.github.io/jueguito-verga/` que abres en el navegador del cel.
 
 | Acción | Teclado |
 |---|---|

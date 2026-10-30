@@ -299,20 +299,66 @@ function onJumpPress() {
   if (state.mode === 'playing') jumpPressed = true;
 }
 
-// Táctil
-const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-document.querySelectorAll('#touch button').forEach((btn) => {
-  const k = btn.dataset.k;
-  const on = (e) => { e.preventDefault(); initAudio(); if (k === 'jump' && !keys.jump) onJumpPress(); keys[k] = true; btn.classList.add('on'); };
-  const off = (e) => { e.preventDefault(); keys[k] = false; btn.classList.remove('on'); };
-  btn.addEventListener('pointerdown', on);
-  btn.addEventListener('pointerup', off);
-  btn.addEventListener('pointercancel', off);
-  btn.addEventListener('pointerleave', off);
+// Táctil: un dedo puede deslizarse entre botones (p. ej. de ▶ a ▲) sin soltar
+const isTouch = matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+document.body.classList.toggle('touch', isTouch);
+$('touch').classList.toggle('hidden', !isTouch);
+
+const touchPad = $('touch');
+const touchBtns = [...touchPad.querySelectorAll('[data-k]')];
+const touchPtrs = new Map();
+function keyAt(x, y) {
+  const el = document.elementFromPoint(x, y);
+  const b = el && el.closest('#touch [data-k]');
+  return b ? b.dataset.k : null;
+}
+function syncTouch() {
+  const held = new Set(touchPtrs.values());
+  for (const b of touchBtns) {
+    const k = b.dataset.k, on = held.has(k);
+    if (k === 'jump' && on && !keys.jump) onJumpPress();
+    keys[k] = on;
+    b.classList.toggle('on', on);
+  }
+}
+touchPad.addEventListener('pointerdown', (e) => {
+  const k = keyAt(e.clientX, e.clientY);
+  if (!k) return;
+  e.preventDefault();
+  initAudio();
+  touchPtrs.set(e.pointerId, k);
+  try { touchPad.setPointerCapture(e.pointerId); } catch (err) { /* nada */ }
+  syncTouch();
 });
+touchPad.addEventListener('pointermove', (e) => {
+  if (!touchPtrs.has(e.pointerId)) return;
+  const k = keyAt(e.clientX, e.clientY);
+  if (k && k !== touchPtrs.get(e.pointerId)) { touchPtrs.set(e.pointerId, k); syncTouch(); }
+});
+const touchUp = (e) => { if (touchPtrs.delete(e.pointerId)) syncTouch(); };
+touchPad.addEventListener('pointerup', touchUp);
+touchPad.addEventListener('pointercancel', touchUp);
+
+$('btnPause').addEventListener('click', () => { initAudio(); togglePause(); });
+$('btnMute').addEventListener('click', () => {
+  initAudio();
+  muted = !muted;
+  $('btnMute').textContent = muted ? 'SON OFF' : 'SON ON';
+});
+const canFull = document.fullscreenEnabled && document.documentElement.requestFullscreen;
+$('btnFull').classList.toggle('hidden', !canFull);
+$('btnFull').addEventListener('click', () => {
+  if (document.fullscreenElement) { document.exitFullscreen(); return; }
+  document.documentElement.requestFullscreen().then(() => {
+    if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {});
+  }).catch(() => {});
+});
+addEventListener('contextmenu', (e) => e.preventDefault());
+
 ['title', 'over'].forEach((id) => $(id).addEventListener('pointerdown', (e) => {
   e.preventDefault(); initAudio(); onJumpPress();
 }));
+$('paused').addEventListener('pointerdown', (e) => { e.preventDefault(); togglePause(); });
 
 function togglePause() {
   if (state.mode === 'playing') { state.mode = 'paused'; $('paused').classList.remove('hidden'); }
@@ -348,7 +394,6 @@ function startGame() {
   $('title').classList.add('hidden');
   $('over').classList.add('hidden');
   $('hud').classList.remove('hidden');
-  if (isTouch) $('touch').classList.remove('hidden');
 }
 
 function playerBox() {
@@ -559,7 +604,6 @@ function catchPlayer(by) {
   state.shake = 5;
   SFX.caught();
   $('hud').classList.add('hidden');
-  $('touch').classList.add('hidden');
 }
 
 function updateCaught(dt) {
@@ -831,8 +875,12 @@ function render() {
 //  Escalado de pantalla
 // ------------------------------------------------------------
 function resize() {
-  const fit = Math.min(innerWidth / W, innerHeight / H);
-  const s = fit >= 2 ? Math.floor(fit) : fit;
+  const portrait = isTouch && innerHeight > innerWidth;
+  document.body.classList.toggle('portrait', portrait);
+  // en vertical dejamos la parte de abajo para los controles
+  const availH = portrait ? innerHeight * 0.58 : innerHeight;
+  const fit = Math.min(innerWidth / W, availH / H);
+  const s = fit >= 2 && !isTouch ? Math.floor(fit) : fit;
   const wrap = $('wrap');
   wrap.style.width = `${W * s}px`;
   wrap.style.height = `${H * s}px`;
