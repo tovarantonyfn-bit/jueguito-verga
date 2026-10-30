@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Que No Me Fumen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game" width="320" height="180"></canvas>
+
+  <div id="hud" class="hidden">
+    <div id="score">0 m</div>
+    <div id="leaves">HOJAS 0</div>
+    <div id="danger"><span>MANO</span><div id="bar"><div id="fill"></div></div></div>
+  </div>
+
+  <div id="title" class="screen">
+    <h1>QUE NO ME<br>FUMEN</h1>
+    <p class="sub">Eres un porro. Una mano gigante te quiere fumar. Corre.</p>
+    <ul>
+      <li><b>← →</b> moverte</li>
+      <li><b>↑ / ESPACIO</b> saltar (doble salto)</li>
+      <li><b>↓</b> agacharte</li>
+      <li><span class="g">Hojitas</span> y <span class="b">gotas</span> alejan la mano</li>
+      <li>Esquiva encendedores, ceniceros y chispas</li>
+      <li>Si ves una <b>sombra</b> en el suelo... ¡muévete!</li>
+    </ul>
+    <p class="blink">ESPACIO / TOCA PARA EMPEZAR</p>
+    <p class="best">Récord: <span id="bestTitle">0</span> m</p>
+  </div>
+
+  <div id="over" class="screen hidden">
+    <h1 class="red">¡TE FUMARON!</h1>
+    <p id="final">0 m</p>
+    <p id="newBest" class="g hidden">¡NUEVO RÉCORD!</p>
+    <p class="best">Récord: <span id="bestOver">0</span> m</p>
+    <p class="blink">ESPACIO / TOCA PARA REINTENTAR</p>
+  </div>
+
+  <div id="paused" class="screen hidden">
+    <h1>PAUSA</h1>
+    <p class="blink">P PARA SEGUIR</p>
+  </div>
+
+  <div id="touch" class="hidden">
+    <div class="pad left">
+      <button data-k="left">◀</button>
+      <button data-k="right">▶</button>
+    </div>
+    <div class="pad right">
+      <button data-k="down">▼</button>
+      <button data-k="jump">▲</button>
+    </div>
+  </div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
